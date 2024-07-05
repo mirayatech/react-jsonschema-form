@@ -1,6 +1,7 @@
 import Form from "@rjsf/core";
-import { RJSFSchema } from "@rjsf/utils";
+import { RJSFSchema, UiSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
+import "./App.css";
 
 const schema: RJSFSchema = {
   title: "Person",
@@ -13,17 +14,26 @@ const schema: RJSFSchema = {
   },
 };
 
+const uiSchema: UiSchema = {
+  firstName: { "ui:classNames": "custom-class-first-name" },
+  lastName: { "ui:classNames": "custom-class-last-name" },
+  age: { "ui:classNames": "custom-class-age" },
+};
+
 const log = (type: string) => console.log.bind(console, type);
 
 function App() {
   return (
-    <Form
-      validator={validator}
-      schema={schema}
-      onChange={log("changed")}
-      onSubmit={log("submitted")}
-      onError={log("errors")}
-    />
+    <div className="form-container">
+      <Form
+        validator={validator}
+        schema={schema}
+        uiSchema={uiSchema}
+        onChange={log("changed")}
+        onSubmit={log("submitted")}
+        onError={log("errors")}
+      />
+    </div>
   );
 }
 
